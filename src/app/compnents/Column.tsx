@@ -2,13 +2,15 @@ import { Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "./StrictModeDroppable";
 import TodoCard from "./TodoCard";
 import { IoMdAdd } from "react-icons/io";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   id: TypedColumn;
   todos: Todo[];
   index: number;
+  setOpenForm: Dispatch<SetStateAction<string>>;
 };
-function Column({ id, todos, index }: Props) {
+function Column({ id, todos, index, setOpenForm }: Props) {
   const getTodoListByStatus = todos.map((todo, index) => (
     <Draggable key={todo.$id} draggableId={todo.$id} index={index}>
       {(provided) => (
@@ -50,7 +52,11 @@ function Column({ id, todos, index }: Props) {
               >
                 <b className={`${textColor}`}> {id.toUpperCase()}</b>
                 <b className="float-right mr-2">
-                  <IoMdAdd />
+                  <IoMdAdd
+                    onClick={() => {
+                      setOpenForm(id);
+                    }}
+                  />
                 </b>
                 {getTodoListByStatus}
               </div>

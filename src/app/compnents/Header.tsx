@@ -13,7 +13,7 @@ function Header() {
           <Image
             src="https://links.papareact.com/c2cdd5"
             alt="Trello Image"
-            width={window.screen.width < 500 ? 180 : 300}
+            width={200}
             height={110}
             className="w-42 md:w-56 pt-1  md:pb-5 sm:pb-2 object-contain"
           />
@@ -36,7 +36,7 @@ function Header() {
         {/* Chat GPT status */}
         <div className="w-fit mx-auto mt-2 ">
           <p className="inline-flex items-center text-blue-600 text-sm  shadow-md px-2 rounded-xl bg-white ">
-            <UserCircleIcon className="h-10 w-10 text-blue-800 mr-2" />
+            <UserCircleIcon className="h-10 w-10 text-blue-800 mr-2 " />
             chat gpt is summarizing your task for the day
           </p>
         </div>

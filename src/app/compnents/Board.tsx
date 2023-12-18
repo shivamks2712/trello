@@ -1,13 +1,15 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useBoardStore } from "../store/BoardStore";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "./StrictModeDroppable";
 import Column from "./Column";
 import TodoDataBase from "../api/todoDB";
+import MyForm from "./Form";
 
-const todoDB = new  TodoDataBase();
+const todoDB = new TodoDataBase();
 function Board() {
+  const [openForm, setOpenForm] = useState("");
   const [board, getBoard, setBoardState] = useBoardStore((state) => [
     state.board,
     state.getBoard,
@@ -47,28 +49,42 @@ function Board() {
     }
   };
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId={"dropboard"} direction="horizontal" type="column">
-        {(provided) => (
-          <div
-            className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-7xl"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {Array.from(board.columns.entries()).map(([id, column], index) => (
-              <>
-                <Column
-                  id={id}
-                  key={id}
-                  todos={column.todos}
-                  index={index}
-                ></Column>
-              </>
-            ))}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <div className="mx-1">
+      <MyForm
+        visible={openForm !== ""}
+        title={openForm}
+        setOpenForm={setOpenForm}
+      />
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable
+          droppableId={"dropboard"}
+          direction="horizontal"
+          type="column"
+        >
+          {(provided) => (
+            <div
+              className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-7xl"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {Array.from(board.columns.entries()).map(
+                ([id, column], index) => (
+                  <>
+                    <Column
+                      id={id}
+                      key={id}
+                      todos={column.todos}
+                      index={index}
+                      setOpenForm={setOpenForm}
+                    ></Column>
+                  </>
+                )
+              )}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   );
 }
 export default Board;

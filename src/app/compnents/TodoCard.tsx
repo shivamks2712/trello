@@ -1,4 +1,3 @@
-"use client";
 import { MdDelete } from "react-icons/md";
 import {
   DraggableProvidedDragHandleProps,
