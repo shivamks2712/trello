@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import { useBoardStore } from "../store/BoardStore";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
